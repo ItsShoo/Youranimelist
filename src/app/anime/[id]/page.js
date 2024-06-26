@@ -3,10 +3,7 @@ import VideoPlayer from "@/components/utilities/videoplayer"
 import Image from "next/image"
 import { authUserSession } from "@/libs/auth-libs"
 
-async function getAnimeIds() {
-    const response = await getAnimeResponse(`anime`, ''); // Adjust as needed
-    return response.data.map(anime => anime.id);
-  }
+
 
 const Page = async({params:{ id } }) => {
     const anime = await getAnimeResponse(`anime/${id}`)
@@ -47,17 +44,5 @@ const Page = async({params:{ id } }) => {
         </>
     )
 }
-
-export async function generateStaticParams() {
-    try {
-      const animeIds = await getAnimeIds(); // Fetch all possible anime IDs
-  
-      return animeIds.map((id) => ({ id }));
-    } catch (error) {
-      console.error("Error fetching anime IDs:", error);
-      return []; // Return empty array to prevent build errors
-    }
-  }
-  
 
 export default Page
